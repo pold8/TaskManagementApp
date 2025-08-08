@@ -59,8 +59,8 @@ public class TaskManagement {
             return ((Employee)entry.getKey()).getIdEmployee() == idEmployee;
         }).flatMap((entry) -> {
             return ((List)entry.getValue()).stream();
-        }).filter((t) -> {
-            return "Completed".equals(t.getStatusTask());
+        }).filter((task) -> {
+            return "Completed".equals(task.getStatusTask());
         }).mapToInt(Task::estimateDuration).sum();
     }
 
