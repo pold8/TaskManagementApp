@@ -15,7 +15,7 @@ public class HelloApplication extends Application {
 
     public void start(Stage stage) throws IOException {
         TaskSerialization.deserialize();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/assignment_1/home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/proj/taskmanagementapp/home.fxml"));
         Scene scene = new Scene((Parent)fxmlLoader.load(), 1200.0, 700.0);
         stage.setTitle("Task Manager");
         stage.setScene(scene);

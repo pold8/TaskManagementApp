@@ -1,10 +1,5 @@
 package proj.taskmanagementapp.userInterface;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,125 +17,131 @@ import proj.taskmanagementapp.dataModel.ComplexTask;
 import proj.taskmanagementapp.dataModel.Employee;
 import proj.taskmanagementapp.dataModel.Task;
 
+import java.util.List;
+import java.util.Map;
+
 public class HomeController {
+
     @FXML
     private Button manageEmployees;
+
     @FXML
     private Button modifyTasks;
+
     @FXML
     private Button viewStatististics;
+
     @FXML
     private TableView<Pair<Employee, Task>> employeeTaskTable;
+
     @FXML
     private TableColumn<Pair<Employee, Task>, Integer> employeeColumn;
+
     @FXML
     private TableColumn<Pair<Employee, Task>, String> taskColumn;
+
     @FXML
     private TableColumn<Pair<Employee, Task>, Integer> taskIdColumn;
+
     @FXML
     private TableColumn<Pair<Employee, Task>, String> estimatedDurationColumn;
+
     @FXML
     private TableColumn<Pair<Employee, Task>, String> typeColumn;
 
-    public HomeController() {
-    }
 
     @FXML
     private void initialize() {
-        this.employeeColumn.setCellValueFactory((cellData) -> {
-            return Bindings.createObjectBinding(() -> {
-                return ((Employee)((Pair)cellData.getValue()).getKey()).getIdEmployee();
-            }, new Observable[0]);
-        });
-        this.taskColumn.setCellValueFactory((cellData) -> {
-            return Bindings.createObjectBinding(() -> {
-                return ((Employee)((Pair)cellData.getValue()).getKey()).getName();
-            }, new Observable[0]);
-        });
-        this.taskIdColumn.setCellValueFactory((cellData) -> {
-            return Bindings.createObjectBinding(() -> {
-                return ((Task)((Pair)cellData.getValue()).getValue()).getIdTask();
-            }, new Observable[0]);
-        });
-        this.estimatedDurationColumn.setCellValueFactory((cellData) -> {
-            return Bindings.createObjectBinding(() -> {
-                Task task = (Task)((Pair)cellData.getValue()).getValue();
-                int duration = task.estimateDuration();
-                return "" + duration + " hrs";
-            }, new Observable[0]);
-        });
-        this.typeColumn.setCellValueFactory((cellData) -> {
-            return Bindings.createObjectBinding(() -> {
-                Task task = (Task)((Pair)cellData.getValue()).getValue();
-                return task instanceof ComplexTask ? "Complex Task" : "Simple Task";
-            }, new Observable[0]);
-        });
-        this.loadEmployeeTasks();
+        // Set up table columns
+        employeeColumn.setCellValueFactory(cellData -> javafx.beans.binding.Bindings.createObjectBinding(
+                () -> cellData.getValue().getKey().getIdEmployee()
+        ));
+        taskColumn.setCellValueFactory(cellData -> javafx.beans.binding.Bindings.createObjectBinding(
+                () -> cellData.getValue().getKey().getName()
+        ));
+        taskIdColumn.setCellValueFactory(cellData -> javafx.beans.binding.Bindings.createObjectBinding(
+                () -> cellData.getValue().getValue().getIdTask()
+        ));
+        estimatedDurationColumn.setCellValueFactory(cellData -> javafx.beans.binding.Bindings.createObjectBinding(
+                () -> {
+                    Task task = cellData.getValue().getValue();
+                    int duration = task.estimateDuration();  // Calculate the duration
+                    return duration + " hrs";  // Add "hrs" after the duration
+                }
+        ));
+
+        typeColumn.setCellValueFactory(cellData -> javafx.beans.binding.Bindings.createObjectBinding(
+                () -> {
+                    Task task = cellData.getValue().getValue();
+                    if (task instanceof ComplexTask) {
+                        return "Complex Task"; // Example type for ComplexTask
+                    } else {
+                        return "Simple Task"; // Example type for other tasks
+                    }
+                }
+        ));
+
+        // Load data into table
+        loadEmployeeTasks();
     }
 
     private void loadEmployeeTasks() {
         Map<Employee, List<Task>> tasksMap = TaskManagement.getEmployeeTasks();
+
         if (tasksMap == null) {
             System.out.println("Error: TasksManagement.getEmployeeTasks() returned null!");
-        } else {
-            ObservableList<Pair<Employee, Task>> taskEntries = FXCollections.observableArrayList();
-            Iterator var3 = tasksMap.entrySet().iterator();
+            return;
+        }
 
-            while(true) {
-                Employee employee;
-                List tasks;
-                do {
-                    if (!var3.hasNext()) {
-                        this.employeeTaskTable.setItems(taskEntries);
-                        this.employeeTaskTable.refresh();
-                        return;
-                    }
+        ObservableList<Pair<Employee, Task>> taskEntries = FXCollections.observableArrayList();
 
-                    Map.Entry<Employee, List<Task>> entry = (Map.Entry)var3.next();
-                    employee = (Employee)entry.getKey();
-                    tasks = (List)entry.getValue();
-                } while(tasks == null);
+        for (Map.Entry<Employee, List<Task>> entry : tasksMap.entrySet()) {
+            Employee employee = entry.getKey();
+            List<Task> tasks = entry.getValue();
 
-                Iterator var7 = tasks.iterator();
-
-                while(var7.hasNext()) {
-                    Task task = (Task)var7.next();
-                    taskEntries.add(new Pair(employee, task));
+            if (tasks != null) {
+                for (Task task : tasks) {
+                    taskEntries.add(new Pair<>(employee, task));
                 }
             }
         }
+
+        employeeTaskTable.setItems(taskEntries);
+        employeeTaskTable.refresh(); // Refresh the table to reflect updated data
     }
+
 
     @FXML
     private void ManageEmployeesAction(ActionEvent event) {
-        this.loadScene("/com/example/assignment_1/manage_employees.fxml");
+        loadScene("/proj/taskmanagementapp/manage_employees.fxml");
     }
 
     @FXML
     private void ModifyTasksAction(ActionEvent event) {
-        this.loadScene("/com/example/assignment_1/view_statistics.fxml");
+        loadScene("/proj/taskmanagementapp/view_statistics.fxml");
     }
 
     @FXML
     private void ViewStatisticsAction(ActionEvent event) {
-        this.loadScene("/com/example/assignment_1/view_statistics.fxml");
+        loadScene("/proj/taskmanagementapp/view_statistics.fxml");
     }
 
     private void loadScene(String fxmlFile) {
         try {
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource(fxmlFile));
+            // Use a relative path to load the FXML files
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             if (loader.getLocation() == null) {
                 throw new IllegalStateException("Location is not set for " + fxmlFile);
             }
+            AnchorPane newScene = loader.load();
 
-            AnchorPane newScene = (AnchorPane)loader.load();
-            Stage stage = (Stage)this.manageEmployees.getScene().getWindow();
+            // Get the current stage and set the new scene
+            Stage stage = (Stage) manageEmployees.getScene().getWindow();
             stage.setScene(new Scene(newScene));
             stage.show();
-        } catch (Exception var5) {
-            Exception e = var5;
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
 }

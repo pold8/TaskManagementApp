@@ -2,7 +2,7 @@ package proj.taskmanagementapp.dataModel;
 
 import java.io.Serializable;
 
-public class SimpleTask extends Task implements Serializable {
+public non-sealed class SimpleTask extends Task implements Serializable {
     private int startHour;
     private int endHour;
 
@@ -13,11 +13,11 @@ public class SimpleTask extends Task implements Serializable {
     }
 
     public int getStartHour() {
-        return this.startHour;
+        return startHour;
     }
 
     public int getEndHour() {
-        return this.endHour;
+        return endHour;
     }
 
     public void setStartHour(int startHour) {
@@ -28,7 +28,8 @@ public class SimpleTask extends Task implements Serializable {
         this.endHour = endHour;
     }
 
-    public int estimateDuration() {
-        return this.endHour - this.startHour;
+    @Override
+    public int estimateDuration(){
+        return endHour - startHour;
     }
 }

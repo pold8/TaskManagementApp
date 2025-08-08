@@ -2,7 +2,7 @@ package proj.taskmanagementapp.dataModel;
 
 import java.io.Serializable;
 
-public abstract sealed class Task implements Serializable permits ComplexTask, SimpleTask {
+public sealed abstract class Task implements Serializable permits ComplexTask, SimpleTask {
     private int idTask;
     private String statusTask;
 
@@ -12,11 +12,11 @@ public abstract sealed class Task implements Serializable permits ComplexTask, S
     }
 
     public String getStatusTask() {
-        return this.statusTask;
+        return statusTask;
     }
 
     public int getIdTask() {
-        return this.idTask;
+        return idTask;
     }
 
     public void setIdTask(int idTask) {

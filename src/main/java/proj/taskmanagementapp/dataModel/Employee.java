@@ -12,11 +12,11 @@ public class Employee implements Serializable {
     }
 
     public int getIdEmployee() {
-        return this.idEmployee;
+        return idEmployee;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setIdEmployee(int idEmployee) {
@@ -27,18 +27,20 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
+    @Override
     public int hashCode() {
-        return Integer.hashCode(this.idEmployee);
+        return Integer.hashCode(idEmployee);
     }
 
+    @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if(this == obj) {
             return true;
-        } else if (obj != null && this.getClass() == obj.getClass()) {
-            Employee employee = (Employee)obj;
-            return this.idEmployee == employee.idEmployee;
-        } else {
+        }
+        if(obj == null || getClass() != obj.getClass()){
             return false;
         }
+        Employee employee = (Employee) obj;
+        return idEmployee == employee.idEmployee;
     }
 }
