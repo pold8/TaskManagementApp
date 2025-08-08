@@ -1,16 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="proj.taskmanagementapp.userInterface.HomeController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj.taskmanagementapp.userInterface.HomeController">
+    <children>
+        <AnchorPane prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #777777;">
+            <children>
+                <Label layoutX="14.0" layoutY="15.0" text="Task Management">
+                    <font>
+                        <Font size="48.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutY="95.0" prefHeight="5.0" prefWidth="1200.0" style="-fx-background-color: #000000;" />
+        <AnchorPane layoutY="100.0" prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: #DDDDDD;">
+            <children>
+                <Button fx:id="manageEmployees" layoutX="25.0" layoutY="100.0" mnemonicParsing="false" onAction="#ManageEmployeesAction" prefWidth="150.0" style="-fx-background-color: #777777; -fx-border-color: #000000;" text="Manage Employees">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <Button fx:id="modifyTasks" layoutX="25.0" layoutY="250.0" mnemonicParsing="false" onAction="#ModifyTasksAction" prefWidth="150.0" style="-fx-background-color: #777777; -fx-border-color: #000000;" text="Modify Tasks Status">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <Button fx:id="viewStatististics" layoutX="25.0" layoutY="277.0" mnemonicParsing="false" onAction="#ViewStatisticsAction" prefWidth="150.0" style="-fx-background-color: #777777; -fx-border-color: #000000;" text="View Statistics">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="250.0" layoutY="100.0" prefHeight="500.0" prefWidth="900.0">
+            <children>
+                <TableView fx:id="employeeTaskTable" layoutY="20.0" prefHeight="500.0" prefWidth="900.0">
+                    <columns>
+                        <TableColumn fx:id="employeeColumn" prefWidth="150.0" text="Employee ID" />
+                        <TableColumn fx:id="taskColumn" prefWidth="300.0" text="Employee Name" />
+                        <TableColumn fx:id="taskIdColumn" prefWidth="150.0" text="Task ID" />
+                        <TableColumn fx:id="estimatedDurationColumn" prefWidth="200.0" text="Estimated Duration" />
+                        <TableColumn fx:id="typeColumn" prefWidth="99.0" text="Task Type" />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

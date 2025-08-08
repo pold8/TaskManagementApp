@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proj.taskmanagementapp.userInterface.ViewStatisticsController">
+    <children>
+        <AnchorPane prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #777777;">
+            <children>
+                <Label layoutX="14.0" layoutY="15.0" text="Task Management">
+                    <font>
+                        <Font size="48.0" />
+                    </font>
+                </Label>
+                <Button fx:id="backButton" layoutX="1000.0" layoutY="34.0" mnemonicParsing="false" onAction="#backAction" prefHeight="20.0" prefWidth="100.0" style="-fx-background-color: #DDDDDD; -fx-border-color: #000000;" text="Back">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutY="95.0" prefHeight="5.0" prefWidth="1200.0" style="-fx-background-color: #000000;" />
+        <AnchorPane layoutX="50.0" layoutY="150.0" prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #DDDDDD; -fx-background-radius: 50;">
+            <children>
+                <Label layoutX="78.0" layoutY="14.0" text="Modify task status">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label layoutX="30.0" layoutY="90.0" text="Employee id:">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="employeeIdTextField" layoutX="150.0" layoutY="90.0" />
+                <Label fx:id="messageLabel" layoutX="43.0" layoutY="230.0" prefWidth="250.0">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Button fx:id="changeStatusButton" layoutX="100.0" layoutY="400.0" mnemonicParsing="false" onAction="#changeStatusAction" prefWidth="150.0" text="Change status">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+                <Label layoutX="30.0" layoutY="130.0" text="Task id:">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="taskIdTextField" layoutX="150.0" layoutY="130.0" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="425.0" layoutY="150.0" prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #DDDDDD; -fx-background-radius: 50;">
+            <children>
+                <Label layoutX="26.0" layoutY="14.0" text="Employees who have a work" textAlignment="RIGHT">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label layoutX="19.0" layoutY="49.0" text="duration grater than 40 hours" textAlignment="RIGHT">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <TableView fx:id="filterEmployeesTableView" layoutX="25.0" layoutY="125.0" prefHeight="350.0" prefWidth="300.0">
+                    <columns>
+                        <TableColumn fx:id="filterEmployeeIdColumn" prefWidth="50.0" text="ID" />
+                        <TableColumn fx:id="filterEmployeeNameColumn" prefWidth="150.0" text="Name" />
+                        <TableColumn fx:id="filterEmployeeHoursColumn" prefWidth="100.0" text="Hours worked" />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="800.0" layoutY="150.0" prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #DDDDDD; -fx-background-radius: 50;">
+            <children>
+                <Label layoutX="34.0" layoutY="14.0" text="Number of completed and">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Label layoutX="75.0" layoutY="49.0" text="uncompleted tasks">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <TableView fx:id="statisticsEmployeeTableView" layoutX="25.0" layoutY="125.0" prefHeight="350.0" prefWidth="300.0">
+                    <columns>
+                        <TableColumn fx:id="statisticsEmployeeIdColumn" prefWidth="25.0" text="ID" />
+                        <TableColumn fx:id="statisticsEmployeeNameColumn" prefWidth="120.0" text="Name" />
+                        <TableColumn fx:id="completedTasksColumn" prefWidth="70.0" text="Completed" />
+                        <TableColumn fx:id="uncompletedTasksColumn" prefWidth="84.0" text="Uncompleted" />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -11,14 +11,17 @@ import java.util.Map;
 
 public class SerializedData implements Serializable {
     private static final long serialVersionUID = 1L;
-    private final Map<Employee, List<Task>> employeeTasks = TaskManagement.getEmployeeTasks();
-    private final List<Task> unassignedTasks = Utility.getUnassignedTasks();
+
+    private final Map<Employee, List<Task>> employeeTasks;
+    private final List<Task> unassignedTasks;
 
     public SerializedData() {
+        this.employeeTasks = TaskManagement.getEmployeeTasks();
+        this.unassignedTasks = Utility.getUnassignedTasks();
     }
 
     public void restore() {
-        TaskManagement.setEmployeeTasks(this.employeeTasks);
-        Utility.setUnassignedTasks(this.unassignedTasks);
+        TaskManagement.setEmployeeTasks(employeeTasks);
+        Utility.setUnassignedTasks(unassignedTasks);
     }
 }
